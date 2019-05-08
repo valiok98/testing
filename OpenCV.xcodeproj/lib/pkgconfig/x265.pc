@@ -1,0 +1,1 @@
+../../Cellar/x265/3.0/lib/pkgconfig/x265.pc

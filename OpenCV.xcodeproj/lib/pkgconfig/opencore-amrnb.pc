@@ -1,0 +1,1 @@
+../../Cellar/opencore-amr/0.1.5/lib/pkgconfig/opencore-amrnb.pc

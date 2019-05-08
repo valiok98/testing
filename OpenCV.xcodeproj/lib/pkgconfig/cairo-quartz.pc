@@ -1,0 +1,1 @@
+../../Cellar/cairo/1.16.0/lib/pkgconfig/cairo-quartz.pc

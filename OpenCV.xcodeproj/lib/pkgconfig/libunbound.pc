@@ -1,0 +1,1 @@
+../../Cellar/unbound/1.9.1_1/lib/pkgconfig/libunbound.pc

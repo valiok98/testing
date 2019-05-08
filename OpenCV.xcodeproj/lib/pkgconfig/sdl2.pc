@@ -1,0 +1,1 @@
+../../Cellar/sdl2/2.0.9_1/lib/pkgconfig/sdl2.pc

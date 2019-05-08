@@ -1,0 +1,1 @@
+../../Cellar/aom/1.0.0/lib/pkgconfig/aom.pc
