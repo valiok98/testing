@@ -48,31 +48,45 @@ int main() {
     
     // Create the 4 trackbars
     
-    cv::createTrackbar("Thresholding value", trackbar_window->getName(), &(threshold_fr_hp->getThresholdValue()),
+    cv::createTrackbar("Thresholding value", trackbar_window->getName(), threshold_fr_hp->getThresholdValue(),
                    THRESHOLDING_MAX_VALUE);
     
-    cv::createTrackbar("Thresholding type", trackbar_window->getName(), &(threshold_fr_hp->getThresholdType()),
+    cv::createTrackbar("Thresholding type", trackbar_window->getName(), threshold_fr_hp->getThresholdType(),
                        THRESHOLDING_MAX_TYPE);
     
-    cv::createTrackbar("Adaptive thresholding method", trackbar_window->getName(), &(adaptive_threshold_fr_hp->getThresholdMethod()),
+    cv::createTrackbar("Adaptive thresholding method", trackbar_window->getName(), adaptive_threshold_fr_hp->getThresholdMethod(),
                        ADAPTIVE_THRESHOLDING_METHOD);
     
-    cv::createTrackbar("Adaptive thresholding type", trackbar_window->getName(), &(adaptive_threshold_fr_hp->getThresholdType()),
+    cv::createTrackbar("Adaptive thresholding type", trackbar_window->getName(), adaptive_threshold_fr_hp->getThresholdType(),
                        ADAPTIVE_THRESHOLDING_MAX_TYPE);
-    
+
     while (1) {
         cv::Mat threshold_frame,
-            adaptive_threshold_frame;
+            threshold_frame_copy,
+            adaptive_threshold_frame,
+            adaptive_threshold_frame_copy;
+        
+        cap >> threshold_frame;
+        cap >> threshold_frame_copy;
+        cap >> adaptive_threshold_frame;
+        cap >> adaptive_threshold_frame_copy;
+        
+        try {
+            cv::cvtColor(threshold_frame, threshold_frame, CV_BGR2GRAY);
+        } catch(cv::Exception& err) {
+            // Let it slide, happens on first try. Continue with the safe copy instead.
+            threshold_frame = threshold_frame_copy;
+        }
+        
+        try {
+            cv::cvtColor(adaptive_threshold_frame, adaptive_threshold_frame, CV_BGR2GRAY);
+        } catch(cv::Exception& err) {
+            // Let it slide, happens on first try. Continue with the safe copy instead.
+            adaptive_threshold_frame = adaptive_threshold_frame_copy;
+        }
         
         threshold_fr_hp->setFrame(threshold_frame);
         adaptive_threshold_fr_hp->setFrame(adaptive_threshold_frame);
-        
-        cap >> threshold_frame;
-        cap >> adaptive_threshold_frame;
-        
-        // Change frame color scheme to Black&White.
-        cv::cvtColor(threshold_frame, threshold_frame, CV_BGR2GRAY);
-        cv::cvtColor(adaptive_threshold_frame, adaptive_threshold_frame, CV_BGR2GRAY);
         // Apply thresholding.
         on_change_threshold((void*)threshold_fr_hp);
         on_change_adaptive_threshold((void*)adaptive_threshold_fr_hp);
@@ -93,10 +107,13 @@ int main() {
 
 void on_change_threshold(void* user_data) {
     FrameHelper* fr_helper = (FrameHelper*) user_data;
-    cv::threshold(fr_helper->getFrame(), fr_helper->getFrame(), fr_helper->getThresholdValue(), THRESHOLDING_MAX_VALUE, fr_helper->getThresholdType());
+    if(fr_helper->getFrame().empty()) {
+        std::cout<<"Frame exists ;)\n";
+    }
+    cv::threshold(fr_helper->getFrame(), fr_helper->getFrame(), *(fr_helper->getThresholdValue()), THRESHOLDING_MAX_VALUE, *(fr_helper->getThresholdType()));
 }
 
 void on_change_adaptive_threshold(void* user_data) {
     FrameHelper* fr_helper = (FrameHelper*) user_data;
-    cv::adaptiveThreshold(fr_helper->getFrame(), fr_helper->getFrame(), ADAPTIVE_THRESHOLDING_MAX_VALUE, fr_helper->getThresholdMethod(), fr_helper->getThresholdType(), 3, 0.1);
+    cv::adaptiveThreshold(fr_helper->getFrame(), fr_helper->getFrame(), ADAPTIVE_THRESHOLDING_MAX_VALUE, *(fr_helper->getThresholdMethod()), *(fr_helper->getThresholdType()), 3, 0.1);
 }

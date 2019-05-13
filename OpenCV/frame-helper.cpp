@@ -10,22 +10,20 @@
 
 FrameHelper::FrameHelper() {}
 
-FrameHelper::FrameHelper(cv::Mat frame) : frame(&frame) {}
-
-int& FrameHelper::getThresholdValue() {
-    return this->threshold_value;
+int* FrameHelper::getThresholdValue() {
+    return &(this->threshold_value);
 }
 
-int& FrameHelper::getThresholdType() {
-    return this->threshold_type;
+int* FrameHelper::getThresholdType() {
+    return &(this->threshold_type);
 }
 
-int& FrameHelper::getThresholdMethod() {
-    return this->threshold_method;
+int* FrameHelper::getThresholdMethod() {
+    return &(this->threshold_method);
 }
 
 cv::Mat FrameHelper::getFrame() const {
-    return *(this->frame);
+    return this->frame;
 }
 
 void FrameHelper::setThresholdValue(int threshold_value) {
@@ -40,6 +38,6 @@ void FrameHelper::setThresholdMethod(int threshold_method) {
     this->threshold_method = threshold_method;
 }
 
-void FrameHelper::setFrame(cv::Mat frame) {
-    this->frame = &frame;
+void FrameHelper::setFrame(cv::Mat& frame) {
+    this->frame = frame;
 }

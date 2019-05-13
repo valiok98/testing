@@ -9,20 +9,19 @@
 #pragma once
 #include <opencv2/opencv.hpp>
 
-class FrameHelper {
+volatile class FrameHelper {
     int threshold_value = 0;
     int threshold_type = 0;
     int threshold_method = 0;
-    cv::Mat* frame;
+    cv::Mat frame;
 public:
     FrameHelper();
-    FrameHelper(cv::Mat);
-    int& getThresholdValue();
-    int& getThresholdType();
-    int& getThresholdMethod();
+    int* getThresholdValue();
+    int* getThresholdType();
+    int* getThresholdMethod();
     cv::Mat getFrame() const;
     void setThresholdValue(int);
     void setThresholdType(int);
     void setThresholdMethod(int);
-    void setFrame(cv::Mat);
+    void setFrame(cv::Mat&);
 };
