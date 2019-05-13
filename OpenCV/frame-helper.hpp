@@ -10,12 +10,17 @@
 #include <opencv2/opencv.hpp>
 
 volatile class FrameHelper {
+    
+    const int THRESHOLDING_MAX_VALUE = 255;
+    const int ADAPTIVE_THRESHOLDING_MAX_VALUE = 255;
+    
+    int mode = 0;
     int threshold_value = 0;
     int threshold_type = 0;
     int threshold_method = 0;
     cv::Mat frame;
 public:
-    FrameHelper();
+    FrameHelper(int);
     int* getThresholdValue();
     int* getThresholdType();
     int* getThresholdMethod();
@@ -24,4 +29,5 @@ public:
     void setThresholdType(int);
     void setThresholdMethod(int);
     void setFrame(cv::Mat&);
+    void thresholding();
 };

@@ -15,8 +15,6 @@
 #define ADAPTIVE_THRESHOLDING_METHOD 1
 #define ADAPTIVE_THRESHOLDING_MAX_TYPE 1
 
-#define MAX_BINARY_VALUE 255
-
 void on_change_threshold(void*);
 void on_change_adaptive_threshold(void*);
 
@@ -107,9 +105,6 @@ int main() {
 
 void on_change_threshold(void* user_data) {
     FrameHelper* fr_helper = (FrameHelper*) user_data;
-    if(fr_helper->getFrame().empty()) {
-        std::cout<<"Frame exists ;)\n";
-    }
     cv::threshold(fr_helper->getFrame(), fr_helper->getFrame(), *(fr_helper->getThresholdValue()), THRESHOLDING_MAX_VALUE, *(fr_helper->getThresholdType()));
 }
 
