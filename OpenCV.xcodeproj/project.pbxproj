@@ -53,7 +53,7 @@
 		6D07A92B2281E9E80045FF83 /* libopencv_img_hash.3.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D07A8FE2281E9E40045FF83 /* libopencv_img_hash.3.4.5.dylib */; };
 		6D07A92C2281E9E80045FF83 /* libopencv_highgui.3.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D07A8FF2281E9E70045FF83 /* libopencv_highgui.3.4.5.dylib */; };
 		6D07A92E2281EBB50045FF83 /* Info.plist in Sources */ = {isa = PBXBuildFile; fileRef = 6D07A92D2281EADB0045FF83 /* Info.plist */; };
-		6D82EA3922833212005F686A /* frame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D82EA3722833212005F686A /* frame.cpp */; };
+		6D2A642E228989C20026E5B0 /* window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D2A642C228989C20026E5B0 /* window.cpp */; };
 		6DB995002281827700D850FD /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6DB994FF2281827700D850FD /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -116,8 +116,8 @@
 		6D07A8FE2281E9E40045FF83 /* libopencv_img_hash.3.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_img_hash.3.4.5.dylib; sourceTree = "<group>"; };
 		6D07A8FF2281E9E70045FF83 /* libopencv_highgui.3.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_highgui.3.4.5.dylib; sourceTree = "<group>"; };
 		6D07A92D2281EADB0045FF83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6D82EA3722833212005F686A /* frame.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = frame.cpp; sourceTree = "<group>"; };
-		6D82EA3822833212005F686A /* frame.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = frame.hpp; sourceTree = "<group>"; };
+		6D2A642C228989C20026E5B0 /* window.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = window.cpp; sourceTree = "<group>"; };
+		6D2A642D228989C20026E5B0 /* window.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = window.hpp; sourceTree = "<group>"; };
 		6DB994FC2281827700D850FD /* OpenCV */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OpenCV; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DB994FF2281827700D850FD /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -244,8 +244,8 @@
 			isa = PBXGroup;
 			children = (
 				6DB994FF2281827700D850FD /* main.cpp */,
-				6D82EA3722833212005F686A /* frame.cpp */,
-				6D82EA3822833212005F686A /* frame.hpp */,
+				6D2A642C228989C20026E5B0 /* window.cpp */,
+				6D2A642D228989C20026E5B0 /* window.hpp */,
 			);
 			path = OpenCV;
 			sourceTree = "<group>";
@@ -308,7 +308,7 @@
 			files = (
 				6D07A92E2281EBB50045FF83 /* Info.plist in Sources */,
 				6DB995002281827700D850FD /* main.cpp in Sources */,
-				6D82EA3922833212005F686A /* frame.cpp in Sources */,
+				6D2A642E228989C20026E5B0 /* window.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
