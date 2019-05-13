@@ -8,11 +8,15 @@
 
 #pragma once
 #include <opencv2/opencv.hpp>
+#include "window.hpp"
 
 volatile class FrameHelper {
     
     const int THRESHOLDING_MAX_VALUE = 255;
+    const int THRESHOLDING_MAX_TYPE = 4;
     const int ADAPTIVE_THRESHOLDING_MAX_VALUE = 255;
+    const int ADAPTIVE_THRESHOLDING_METHOD = 1;
+    const int ADAPTIVE_THRESHOLDING_MAX_TYPE = 1;
     
     int mode = 0;
     int threshold_value = 0;
@@ -30,4 +34,5 @@ public:
     void setThresholdMethod(int);
     void setFrame(cv::Mat&);
     void thresholding();
+    void create_trackbars(Window*);
 };

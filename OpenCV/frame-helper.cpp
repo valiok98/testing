@@ -58,3 +58,24 @@ void FrameHelper::thresholding() {
             break;
     }
 }
+
+void FrameHelper::create_trackbars(Window* window) {
+    switch(this->mode) {
+        case 0:
+            cv::createTrackbar("Thresholding value", window->getName(), this->getThresholdValue(),
+                               this->THRESHOLDING_MAX_VALUE);
+            
+            cv::createTrackbar("Thresholding type", window->getName(), this->getThresholdType(),
+                               this->THRESHOLDING_MAX_TYPE);
+            break;
+        case 1:
+            cv::createTrackbar("Adaptive thresholding method", window->getName(), this->getThresholdMethod(),
+                               this->ADAPTIVE_THRESHOLDING_METHOD);
+            
+            cv::createTrackbar("Adaptive thresholding type", window->getName(), this->getThresholdType(),
+                               this->ADAPTIVE_THRESHOLDING_MAX_TYPE);
+            break;
+        default:
+            break;
+    }
+}
