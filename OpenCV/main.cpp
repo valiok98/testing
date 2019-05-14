@@ -61,13 +61,13 @@ int main() {
                 
                 cv::approxPolyDP(contours[i], approx_contour, cv::arcLength(contours[i], true) * 0.02, true);
                 
-                cv::Scalar QUADRILATERAL_COLOR(0, 0, 255);
-                cv::Scalar colour;
+                cv::Scalar QUADRILATERAL_COLOR(0, 0, 255),
+                    color;
                 
                 cv::Rect r = cv::boundingRect(approx_contour);
                 
                 if (approx_contour.size() == 4) {
-                    colour = QUADRILATERAL_COLOR;
+                    color = QUADRILATERAL_COLOR;
                 }
                 else {
                     continue;
@@ -78,7 +78,7 @@ int main() {
                     continue;
                 }
                 
-                cv::polylines(threshold_frame, approx_contour, true, colour, 4);
+                cv::polylines(threshold_frame, approx_contour, true, color, 4);
                 
                 // -----------------------------
                 
