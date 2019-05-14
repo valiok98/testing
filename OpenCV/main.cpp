@@ -55,13 +55,57 @@ int main() {
             // Apply thresholding.
             threshold_fr_hp->thresholding();
             // Find contours.
-            cv::findContours(threshold_frame, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
+            cv::findContours(threshold_frame, contours, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
             // Draw contours.
-            for( int i = 0; i < contours.size(); i++ ) {
-                    contours[i] = cv::boundingRect(contours[i]);
-                    cv::approxPolyDP(contours[i], contours[i], cv::arcLength(contours[i], true) * 0.02, true);
-                    cv::drawContours(threshold_frame, contours, i, CV_BGR2HLS, 2, 8, hierarchy);
+            for( size_t i = 0; i < contours.size(); i++ ) {
+            
+                std::vector<cv::Point> approx_contour;
+                
+                cv::approxPolyDP(contours[i], approx_contour, arcLength(contours[i], true) * 0.02, true);
+                
+                cv::Scalar QUADRILATERAL_COLOR(0, 0, 255);
+                cv::Scalar colour;
+                
+                cv::Rect r = cv::boundingRect(approx_contour);
+                
+                if (approx_contour.size() == 4) {
+                    colour = QUADRILATERAL_COLOR;
+                }
+                else {
+                    continue;
+                }
+                
+                if (r.height < 20 || r.width < 20 || r.width > threshold_frame.cols - 10 || r.height > threshold_frame.rows - 10) {
+                    continue;
+                }
+                
+                polylines(threshold_frame, approx_contour, true, colour, 4);
+                
+                // -----------------------------
+                
+                // --- Process Corners ---
+                
+                for (size_t j = 0; j < approx_contour.size(); ++j) {
+                    circle(threshold_frame, approx_contour[j], 3, CV_RGB(0, 255, 0), -1);
+                    
+                    double dx = ((double)approx_contour[(j + 1) % 4].x - (double)approx_contour[j].x) / 7.0;
+                    double dy = ((double)approx_contour[(j + 1) % 4].y - (double)approx_contour[j].y) / 7.0;
+                    
+                    for (int k = 1; k < 7; ++k) {
+                        double px = (double)approx_contour[j].x + (double)k * dx;
+                        double py = (double)approx_contour[j].y + (double)k * dy;
+                        
+                        cv::Point p;
+                        p.x = (int)px;
+                        p.y = (int)py;
+                        circle(threshold_frame, p, 2, CV_RGB(0, 0, 255), -1);
+                    }
+                }
             }
+                
+                // -----------------------------
+                
+                
         } catch(cv::Exception& err) {
             // Let it slide, happens on first try. Continue with the safe copy instead.
             threshold_frame = threshold_frame_copy;
