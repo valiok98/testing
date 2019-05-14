@@ -10,9 +10,7 @@
 #include "window.hpp"
 #include "frame-helper.hpp"
 
-#define MODE 0 // This is the mode of thresholding. Currently supported : 0 | 1
-
-cv::RNG rng(12345);
+#define MODE 1 // This is the mode of thresholding. Currently supported : 0 | 1
 
 int main() {
     std::vector<std::vector<cv::Point>> contours;
@@ -61,7 +59,7 @@ int main() {
             
                 std::vector<cv::Point> approx_contour;
                 
-                cv::approxPolyDP(contours[i], approx_contour, arcLength(contours[i], true) * 0.02, true);
+                cv::approxPolyDP(contours[i], approx_contour, cv::arcLength(contours[i], true) * 0.02, true);
                 
                 cv::Scalar QUADRILATERAL_COLOR(0, 0, 255);
                 cv::Scalar colour;
@@ -75,18 +73,19 @@ int main() {
                     continue;
                 }
                 
-                if (r.height < 20 || r.width < 20 || r.width > threshold_frame.cols - 10 || r.height > threshold_frame.rows - 10) {
+                if (r.height < 20 || r.width < 20 ||
+                    r.width > threshold_frame.cols - 10 || r.height > threshold_frame.rows - 10) {
                     continue;
                 }
                 
-                polylines(threshold_frame, approx_contour, true, colour, 4);
+                cv::polylines(threshold_frame, approx_contour, true, colour, 4);
                 
                 // -----------------------------
                 
                 // --- Process Corners ---
                 
                 for (size_t j = 0; j < approx_contour.size(); ++j) {
-                    circle(threshold_frame, approx_contour[j], 3, CV_RGB(0, 255, 0), -1);
+                    cv::circle(threshold_frame, approx_contour[j], 3, CV_RGB(0, 255, 0), -1);
                     
                     double dx = ((double)approx_contour[(j + 1) % 4].x - (double)approx_contour[j].x) / 7.0;
                     double dy = ((double)approx_contour[(j + 1) % 4].y - (double)approx_contour[j].y) / 7.0;
@@ -98,7 +97,7 @@ int main() {
                         cv::Point p;
                         p.x = (int)px;
                         p.y = (int)py;
-                        circle(threshold_frame, p, 2, CV_RGB(0, 0, 255), -1);
+                        cv::circle(threshold_frame, p, 2, CV_RGB(0, 0, 255), -1);
                     }
                 }
             }
@@ -112,7 +111,7 @@ int main() {
         }
         
         // Show the thresholded image.
-        cv::imshow(threshold_window->getName(), threshold_frame);
+        cv::imshow(threshold_window->getName(), threshold_frame_copy);
     
         if (cv::waitKey(10) == 27) {
             break;
