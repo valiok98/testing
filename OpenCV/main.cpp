@@ -112,7 +112,7 @@ int main() {
 		//hello
         
         // Show the thresholded image.
-        cv::imshow(threshold_window->getName(), threshold_frame_copy);
+        cv::imshow(threshold_window->getName(), threshold_frame);
     
         if (cv::waitKey(10) == 27) {
             break;
