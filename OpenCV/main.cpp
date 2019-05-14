@@ -10,7 +10,7 @@
 #include "window.hpp"
 #include "frame-helper.hpp"
 
-#define MODE 1 // This is the mode of thresholding. Currently supported : 0 | 1
+#define MODE 0 // This is the mode of thresholding. Currently supported : 0 | 1
 
 int main() {
     std::vector<std::vector<cv::Point>> contours;
@@ -47,13 +47,13 @@ int main() {
         cap >> threshold_frame_copy;
         
         try {
-            cv::cvtColor(threshold_frame, threshold_frame, CV_BGR2GRAY);
+            cv::cvtColor(threshold_frame, threshold_frame_copy, CV_BGR2GRAY);
             // Set frame.
-            threshold_fr_hp->setFrame(threshold_frame);
+            threshold_fr_hp->setFrame(threshold_frame_copy);
             // Apply thresholding.
             threshold_fr_hp->thresholding();
             // Find contours.
-            cv::findContours(threshold_frame, contours, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
+            cv::findContours(threshold_frame_copy, contours, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
             // Draw contours.
             for( size_t i = 0; i < contours.size(); i++ ) {
             
@@ -109,6 +109,7 @@ int main() {
             // Let it slide, happens on first try. Continue with the safe copy instead.
             threshold_frame = threshold_frame_copy;
         }
+		//hello
         
         // Show the thresholded image.
         cv::imshow(threshold_window->getName(), threshold_frame_copy);
